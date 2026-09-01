@@ -212,7 +212,6 @@ h3 {
   gap: 1rem;
 }
 
-/* TODO CSS-1: apresenta .stats-grid e .property-grid com CSS Grid. */
 .stats-grid,
 .property-grid {
   display: grid;
@@ -243,9 +242,11 @@ h3 {
   font-size: 2.4rem;
 }
 
-/* TODO CSS-2: cria grelhas para os campos de filtros e do formulário. */
 .filters-grid,
 .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
 /* TODO CSS-3: faz os campos .field--wide ocuparem a largura necessária na grelha. */
