@@ -376,8 +376,14 @@ h3 {
   font-weight: 900;
 }
 
-/* TODO CSS-5: estiliza o footer que acrescentaste às três páginas. */
 .site-footer {
+  background-color: var(--color-ink);
+  color: var(--color-primary-soft);
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 /* TODO CSS-6: acrescenta regras específicas para ecrãs até 700px. */
