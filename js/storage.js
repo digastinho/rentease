@@ -6,26 +6,36 @@ let storageMessage = "";
 function loadFlats() {
   storageMessage = "";
 
-  /*
-   * TODO JS-STORAGE-1
-   * 1. Lê STORAGE_KEY com localStorage.getItem().
-   * 2. Se a chave não existir, devolve [].
-   * 3. Converte a string com JSON.parse().
-   * 4. Confirma que o resultado é um array.
-   * 5. Se ocorrer um erro, define storageMessage e devolve [].
-   */
+  try {
+    const rawData = localStorage.getItem(STORAGE_KEY);
 
-  return [];
+    if (rawData === null) {
+      return [];
+    }
+
+    const parsedData = JSON.parse(rawData);
+
+    if (!Array.isArray(parsedData)) {
+      storageMessage = "Os dados guardados estão num formato inesperado.";
+      return [];
+    }
+
+    return parsedData;
+  } catch (error) {
+    storageMessage = "Não foi possível ler os apartamentos guardados.";
+    return [];
+  }
 }
 
 function saveFlats(flats) {
-  /*
-   * TODO JS-STORAGE-2
-   * 1. Converte o array com JSON.stringify().
-   * 2. Guarda a string com localStorage.setItem().
-   * 3. Devolve true quando a gravação termina.
-   * 4. Se ocorrer um erro, define storageMessage e devolve false.
-   */
+  try {
+    const dataToSave = JSON.stringify(flats);
+    localStorage.setItem(STORAGE_KEY, dataToSave);
+    return true;
+  } catch (error) {
+    storageMessage = "Não foi possível guardar os apartamentos.";
+    return false;
+  }
 
   storageMessage = "Completa saveFlats() para guardar o array no browser.";
   return false;
