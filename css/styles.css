@@ -251,6 +251,7 @@ h3 {
 
 /* TODO CSS-3: faz os campos .field--wide ocuparem a largura necessária na grelha. */
 .field--wide {
+  grid-column: 1/-1;
 }
 
 .field {
