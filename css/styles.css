@@ -215,6 +215,9 @@ h3 {
 /* TODO CSS-1: apresenta .stats-grid e .property-grid com CSS Grid. */
 .stats-grid,
 .property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
 }
 
 .stat-card,
