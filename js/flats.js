@@ -63,11 +63,17 @@ function getProcessedFlats() {
 
   const sortedFlats = [...filteredFlats];
 
-  /*
-   * TODO JS-FLATS-2
-   * Ordena sortedFlats de acordo com sortBy.value:
-   * city, price ou area. Se o valor for none, conserva a ordem.
-   */
+  switch (sortBy.value) {
+    case "city":
+      sortedFlats.sort((a, b) => a.city.localeCompare(b.city));
+      break;
+    case "price":
+      sortedFlats.sort((a, b) => a.rentPrice - b.rentPrice);
+      break;
+    case "area":
+      sortedFlats.sort((a, b) => a.areaSize - b.areaSize);
+      break;
+  }
 
   return { flats: sortedFlats, error: "" };
 }
