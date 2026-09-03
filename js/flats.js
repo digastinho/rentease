@@ -125,8 +125,9 @@ function createFlatCard(flat) {
   facts.className = "property-card__facts";
   facts.appendChild(createFact("Renda", formatCurrency(flat.rentPrice)));
   facts.appendChild(createFact("Área", `${flat.areaSize} m²`));
-
-  // TODO JS-FLATS-3: acrescenta ano, ar condicionado e disponibilidade.
+  facts.appendChild(createFact("Ano", String(flat.yearBuilt)));
+  facts.appendChild(createFact("Ar condicionado", flat.hasAC ? "Sim" : "Não"));
+  facts.appendChild(createFact("Disponível", formatDate(flat.dateAvailable)));
 
   const actions = document.createElement("div");
   actions.className = "property-card__actions";
