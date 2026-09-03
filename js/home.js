@@ -79,7 +79,9 @@ function renderHome(actionMessage = "") {
     showHomeFeedback("");
   }
 
-  // TODO JS-HOME-3: percorre favouriteFlats e acrescenta cada cartão a favouriteList.
+  for (const flat of favouriteFlats) {
+    favouriteList.appendChild(createFavouriteCard(flat));
+  }
 }
 
 function removeFavourite(flatId) {
