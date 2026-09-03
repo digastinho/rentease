@@ -202,18 +202,27 @@ function toggleFavourite(flatId) {
 }
 
 function deleteFlat(flatId) {
-  /*
-   * TODO JS-FLATS-5
-   * 1. Pede confirmação ao utilizador.
-   * 2. Usa filter() para criar um array sem o apartamento escolhido.
-   * 3. Guarda o novo array.
-   * 4. Volta a renderizar.
-   */
-
-  showFlatsFeedback(
-    `Falta implementar a eliminação do apartamento ${flatId}.`,
-    "warning",
+  const confirmed = confirm(
+    "Tens a certeza que queres eliminar este apartamento?",
   );
+
+  if (!confirmed) {
+    return;
+  }
+
+  const flats = loadFlats();
+  const updatedFlats = flats.filter((flat) => flat.id !== flatId);
+
+  const saved = saveFlats(updatedFlats);
+
+  if (saved) {
+    renderFlats("Apartamento eliminado com sucesso.");
+  } else {
+    showFlatsFeedback(
+      getStorageMessage() || "Não foi possível eliminar o apartamento.",
+      "error",
+    );
+  }
 }
 
 filtersForm.addEventListener("input", () => renderFlats());
