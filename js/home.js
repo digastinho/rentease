@@ -85,18 +85,25 @@ function renderHome(actionMessage = "") {
 }
 
 function removeFavourite(flatId) {
-  /*
-   * TODO JS-HOME-4
-   * 1. Carrega o array completo.
-   * 2. Usa map() para mudar apenas isFavourite do apartamento escolhido.
-   * 3. Guarda o array actualizado.
-   * 4. Volta a chamar renderHome() com uma mensagem de sucesso.
-   */
+  const flats = loadFlats();
 
-  showHomeFeedback(
-    `Falta implementar a remoção do favorito ${flatId}.`,
-    "warning",
-  );
+  const updatedFlats = flats.map((flat) => {
+    if (flat.id === flatId) {
+      return { ...flat, isFavourite: false };
+    }
+    return flat;
+  });
+
+  const saved = saveFlats(updatedFlats);
+
+  if (saved) {
+    renderHome("Apartamento removido dos favoritos.");
+  } else {
+    showHomeFeedback(
+      getStorageMessage() || "Não foi possível remover dos favoritos.",
+      "error",
+    );
+  }
 }
 
 renderHome();
