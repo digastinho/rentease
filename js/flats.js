@@ -32,23 +32,35 @@ function getProcessedFlats() {
   const maxArea = readOptionalNumber(maxAreaFilter);
 
   if (minPrice !== null && maxPrice !== null && minPrice > maxPrice) {
-    return { flats: [], error: "O preço mínimo não pode ser superior ao preço máximo." };
+    return {
+      flats: [],
+      error: "O preço mínimo não pode ser superior ao preço máximo.",
+    };
   }
 
   if (minArea !== null && maxArea !== null && minArea > maxArea) {
-    return { flats: [], error: "A área mínima não pode ser superior à área máxima." };
+    return {
+      flats: [],
+      error: "A área mínima não pode ser superior à área máxima.",
+    };
   }
 
-  /*
-   * TODO JS-FLATS-1
-   * Usa filter() sobre allFlats.
-   * Um filtro vazio não deve excluir apartamentos.
-   * Os cinco filtros devem funcionar em conjunto.
-   * As variáveis city, minPrice, maxPrice, minArea e maxArea já estão preparadas.
-   */
-  const filteredFlats = allFlats;
+  const filteredFlats = allFlats.filter((flat) => {
+    const matchesCity = city === "" || flat.city.toLowerCase().includes(city);
+    const matchesMinPrice = minPrice === null || flat.rentPrice >= minPrice;
+    const matchesMaxPrice = maxPrice === null || flat.rentPrice <= maxPrice;
+    const matchesMinArea = minArea === null || flat.areaSize >= minArea;
+    const matchesMaxArea = maxArea === null || flat.areaSize <= maxArea;
 
-  // Esta cópia evita ordenar directamente o array carregado.
+    return (
+      matchesCity &&
+      matchesMinPrice &&
+      matchesMaxPrice &&
+      matchesMinArea &&
+      matchesMaxArea
+    );
+  });
+
   const sortedFlats = [...filteredFlats];
 
   /*
@@ -169,7 +181,10 @@ function toggleFavourite(flatId) {
    * 4. Volta a renderizar.
    */
 
-  showFlatsFeedback(`Falta implementar a alteração do favorito ${flatId}.`, "warning");
+  showFlatsFeedback(
+    `Falta implementar a alteração do favorito ${flatId}.`,
+    "warning",
+  );
 }
 
 function deleteFlat(flatId) {
@@ -181,7 +196,10 @@ function deleteFlat(flatId) {
    * 4. Volta a renderizar.
    */
 
-  showFlatsFeedback(`Falta implementar a eliminação do apartamento ${flatId}.`, "warning");
+  showFlatsFeedback(
+    `Falta implementar a eliminação do apartamento ${flatId}.`,
+    "warning",
+  );
 }
 
 filtersForm.addEventListener("input", () => renderFlats());
