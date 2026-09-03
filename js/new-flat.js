@@ -24,10 +24,12 @@ function readRequiredNumber(fieldName) {
 function isValidDateText(dateText) {
   const dateParts = dateText.split("-");
 
-  if (dateParts.length !== 3
-    || dateParts[0].length !== 4
-    || dateParts[1].length !== 2
-    || dateParts[2].length !== 2) {
+  if (
+    dateParts.length !== 3 ||
+    dateParts[0].length !== 4 ||
+    dateParts[1].length !== 2 ||
+    dateParts[2].length !== 2
+  ) {
     return false;
   }
 
@@ -36,9 +38,11 @@ function isValidDateText(dateText) {
   const day = Number(dateParts[2]);
   const date = new Date(year, month - 1, day);
 
-  return date.getFullYear() === year
-    && date.getMonth() === month - 1
-    && date.getDate() === day;
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
 }
 
 /*
@@ -65,14 +69,19 @@ function validateForm() {
   }
 
   if (!Number.isInteger(streetNumber) || streetNumber <= 0) {
-    errors.streetNumber = "O número da porta tem de ser um número inteiro positivo.";
+    errors.streetNumber =
+      "O número da porta tem de ser um número inteiro positivo.";
   }
 
   if (!Number.isFinite(areaSize) || areaSize <= 0) {
     errors.areaSize = "A área tem de ser um número superior a zero.";
   }
 
-  if (!Number.isInteger(yearBuilt) || yearBuilt < 1900 || yearBuilt > currentYear) {
+  if (
+    !Number.isInteger(yearBuilt) ||
+    yearBuilt < 1900 ||
+    yearBuilt > currentYear
+  ) {
     errors.yearBuilt = `O ano tem de ser um número inteiro entre 1900 e ${currentYear}.`;
   }
 
@@ -93,9 +102,9 @@ function validateForm() {
       hasAC: newFlatForm.elements.hasAC.checked,
       yearBuilt,
       rentPrice,
-      dateAvailable
+      dateAvailable,
     },
-    errors
+    errors,
   };
 }
 
@@ -107,7 +116,7 @@ function showValidationErrors(errors) {
     "areaSize",
     "yearBuilt",
     "rentPrice",
-    "dateAvailable"
+    "dateAvailable",
   ];
 
   for (const fieldName of fieldNames) {
@@ -142,28 +151,40 @@ newFlatForm.addEventListener("submit", (event) => {
   const validationResult = validateForm();
   showValidationErrors(validationResult.errors);
 
-  const hasErrors = Object.values(validationResult.errors)
-    .some((message) => message !== "");
+  const hasErrors = Object.values(validationResult.errors).some(
+    (message) => message !== "",
+  );
 
   if (hasErrors) {
-    showFormFeedback("Corrige os campos assinalados antes de guardar.", "error");
+    showFormFeedback(
+      "Corrige os campos assinalados antes de guardar.",
+      "error",
+    );
     return;
   }
 
-  /*
-   * TODO JS-NEW-1
-   * 1. Carrega o array com loadFlats().
-   * 2. Cria newFlat com Date.now(), validationResult.data e isFavourite: false.
-   * 3. Adiciona newFlat ao array.
-   * 4. Chama saveFlats(flats).
-   * 5. Só se saveFlats devolver true: limpa o formulário, limpa os erros
-   *    e apresenta a mensagem de sucesso com o link para flats.html.
-   */
+  const flats = loadFlats();
 
-  showFormFeedback(
-    "Os dados são válidos. Completa o TODO JS-NEW-1 para guardar o apartamento.",
-    "warning"
-  );
+  const newFlat = {
+    id: Date.now(),
+    ...validationResult.data,
+    isFavourite: false,
+  };
+
+  flats.push(newFlat);
+
+  const saved = saveFlats(flats);
+
+  if (saved) {
+    newFlatForm.reset();
+    showValidationErrors({});
+    showFormFeedback("Apartamento guardado com sucesso.", "success", true);
+  } else {
+    showFormFeedback(
+      getStorageMessage() || "Não foi possível guardar o apartamento.",
+      "error",
+    );
+  }
 });
 
 loadFlats();
