@@ -180,18 +180,25 @@ function renderFlats(actionMessage = "", actionType = "success") {
 }
 
 function toggleFavourite(flatId) {
-  /*
-   * TODO JS-FLATS-4
-   * 1. Carrega o array completo.
-   * 2. Alterna isFavourite apenas no apartamento com flatId.
-   * 3. Guarda o array completo.
-   * 4. Volta a renderizar.
-   */
+  const flats = loadFlats();
 
-  showFlatsFeedback(
-    `Falta implementar a alteração do favorito ${flatId}.`,
-    "warning",
-  );
+  const updatedFlats = flats.map((flat) => {
+    if (flat.id === flatId) {
+      return { ...flat, isFavourite: !flat.isFavourite };
+    }
+    return flat;
+  });
+
+  const saved = saveFlats(updatedFlats);
+
+  if (saved) {
+    renderFlats("Favorito atualizado com sucesso.");
+  } else {
+    showFlatsFeedback(
+      getStorageMessage() || "Não foi possível atualizar o favorito.",
+      "error",
+    );
+  }
 }
 
 function deleteFlat(flatId) {
