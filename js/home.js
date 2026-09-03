@@ -11,7 +11,6 @@ function showHomeFeedback(message, type = "success") {
   homeFeedback.dataset.type = type;
 }
 
-/* Exemplo: cada nome/valor é criado com elementos e textContent. */
 function createFact(label, value) {
   const fact = document.createElement("div");
   fact.className = "property-card__fact";
@@ -44,8 +43,8 @@ function createFavouriteCard(flat) {
   facts.className = "property-card__facts";
   facts.appendChild(createFact("Renda", formatCurrency(flat.rentPrice)));
   facts.appendChild(createFact("Área", `${flat.areaSize} m²`));
-
-  // TODO JS-HOME-1: acrescenta a data de disponibilidade e o ar condicionado.
+  facts.appendChild(createFact("Disponível", formatDate(flat.dateAvailable)));
+  facts.appendChild(createFact("Ar condicionado", flat.hasAC ? "Sim" : "Não"));
 
   const removeButton = document.createElement("button");
   removeButton.className = "button button--secondary button--small";
@@ -93,7 +92,10 @@ function removeFavourite(flatId) {
    * 4. Volta a chamar renderHome() com uma mensagem de sucesso.
    */
 
-  showHomeFeedback(`Falta implementar a remoção do favorito ${flatId}.`, "warning");
+  showHomeFeedback(
+    `Falta implementar a remoção do favorito ${flatId}.`,
+    "warning",
+  );
 }
 
 renderHome();
