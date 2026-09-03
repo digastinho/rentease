@@ -64,8 +64,7 @@ function renderHome(actionMessage = "") {
 
   totalFlatsCount.textContent = flats.length;
 
-  // TODO JS-HOME-2: usa filter() para obter apenas os favoritos.
-  const favouriteFlats = [];
+  const favouriteFlats = flats.filter((flat) => flat.isFavourite);
 
   favouriteFlatsCount.textContent = favouriteFlats.length;
   favouriteList.replaceChildren();
