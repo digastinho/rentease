@@ -50,6 +50,7 @@ function isValidDateText(dateText) {
  * Esta função já lê e valida todos os campos.
  * Não precisas de a reescrever. Usa o objecto devolvido no evento submit.
  */
+
 function validateForm() {
   const city = newFlatForm.elements.city.value.trim();
   const streetName = newFlatForm.elements.streetName.value.trim();
@@ -134,6 +135,11 @@ function showValidationErrors(errors) {
     newFlatForm.elements[firstInvalidField].focus();
   }
 }
+
+/*
+ * Validates the form, builds a new flat object, and saves it
+ * to the full flats array only if validation passes.
+ */
 
 newFlatForm.addEventListener("input", (event) => {
   const errorElement = document.getElementById(`${event.target.name}Error`);

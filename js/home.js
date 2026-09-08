@@ -28,6 +28,11 @@ function createFact(label, value) {
   return fact;
 }
 
+/*
+ * Builds a DOM card element for a favourite flat,
+ * including its availability date and AC status.
+ */
+
 function createFavouriteCard(flat) {
   const card = document.createElement("article");
   card.className = "property-card";
@@ -59,6 +64,11 @@ function createFavouriteCard(flat) {
   return card;
 }
 
+/*
+ * Renders the home page: total count, favourite count,
+ * and a card for each favourited flat.
+ */
+
 function renderHome(actionMessage = "") {
   const flats = loadFlats();
 
@@ -83,6 +93,11 @@ function renderHome(actionMessage = "") {
     favouriteList.appendChild(createFavouriteCard(flat));
   }
 }
+
+/*
+ * Sets isFavourite to false for the flat matching flatId,
+ * removing it from the favourites list without deleting it.
+ */
 
 function removeFavourite(flatId) {
   const flats = loadFlats();

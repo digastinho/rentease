@@ -3,6 +3,11 @@
 const STORAGE_KEY = "renteaseFlats";
 let storageMessage = "";
 
+/*
+ * Loads the saved flats array from localStorage.
+ * Returns an empty array if the key doesn't exist or the data is invalid.
+ */
+
 function loadFlats() {
   storageMessage = "";
 
@@ -26,6 +31,11 @@ function loadFlats() {
     return [];
   }
 }
+
+/*
+ * Saves the given flats array to localStorage as a JSON string.
+ * Returns true on success, false if an error occurs.
+ */
 
 function saveFlats(flats) {
   try {

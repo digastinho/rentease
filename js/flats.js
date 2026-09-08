@@ -23,6 +23,11 @@ function readOptionalNumber(input) {
   return value === "" ? null : Number(value);
 }
 
+/*
+ * Loads all flats, applies city/price/area filters,
+ * then sorts the filtered result based on the selected option.
+ */
+
 function getProcessedFlats() {
   const allFlats = loadFlats();
   const city = cityFilter.value.trim().toLowerCase();
@@ -94,6 +99,11 @@ function createFact(label, value) {
   fact.appendChild(factValue);
   return fact;
 }
+
+/*
+ * Builds a DOM card element for a single flat,
+ * including its year, AC status, and availability date.
+ */
 
 function createFlatCard(flat) {
   const card = document.createElement("article");
@@ -179,6 +189,11 @@ function renderFlats(actionMessage = "", actionType = "success") {
   }
 }
 
+/*
+ * Toggles the isFavourite status of the flat matching flatId,
+ * leaving all other flats unchanged.
+ */
+
 function toggleFavourite(flatId) {
   const flats = loadFlats();
 
@@ -200,6 +215,11 @@ function toggleFavourite(flatId) {
     );
   }
 }
+
+/*
+ * Asks the user for confirmation, then removes the flat
+ * matching flatId from the saved array.
+ */
 
 function deleteFlat(flatId) {
   const confirmed = confirm(
