@@ -127,7 +127,7 @@ a {
 
 .button:hover {
   background: var(--color-primary-dark);
-  color: var(--color-primary-soft);
+  color: var(--color-primary-soft); /*starter file didn't have the letter color*/
 }
 
 .button--secondary {
